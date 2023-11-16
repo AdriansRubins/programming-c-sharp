@@ -1,5 +1,6 @@
-﻿namespace data_structures.Operational;
+﻿namespace data_structures;
 
 public class Robot
 {
+    
 }
