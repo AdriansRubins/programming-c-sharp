@@ -1,4 +1,6 @@
-﻿namespace data_structures;
+﻿using data_structures.Operational;
+
+namespace data_structures.Storage;
 
 public class Trailer
 {

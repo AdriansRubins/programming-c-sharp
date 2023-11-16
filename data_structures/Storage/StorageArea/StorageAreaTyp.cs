@@ -1,4 +1,4 @@
-﻿namespace data_structures;
+﻿namespace data_structures.Storage.StorageArea;
 
 public enum StorageAreaTyp
 {
