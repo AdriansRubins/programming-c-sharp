@@ -1,13 +1,11 @@
-﻿using data_structures.Orange;
-
-namespace data_structures.Operational;
+﻿namespace data_structures;
 
 public class CentralUnit
 {
     private OrangeQueue _orangeQueue;
-
+    
     public CentralUnit()
     {
-        _orangeQueue = new OrangeQueue();
+        _orangeQueue = new OrangeQueue();    
     }
 }

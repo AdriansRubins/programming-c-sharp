@@ -1,6 +1,6 @@
 ﻿using data_structures.Operational;
 
-namespace data_structures.Orange;
+namespace data_structures;
 
 public class OrangeQueue
 {
