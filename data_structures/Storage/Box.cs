@@ -1,6 +1,6 @@
 ﻿#nullable disable
 
-namespace data_structures.Storage;
+namespace data_structures;
 
 public class Box : IStorage<Orange>
 {

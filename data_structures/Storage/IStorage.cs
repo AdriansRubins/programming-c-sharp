@@ -1,4 +1,4 @@
-﻿namespace data_structures.Storage;
+﻿namespace data_structures;
 
 public interface IStorage<in T>
 {

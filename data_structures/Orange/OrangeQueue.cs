@@ -7,6 +7,7 @@ public class OrangeQueue
     public OrangeQueue()
     {
         _oranges = new Queue<Orange>(Configuration.MaxOrangesInQueue);
+        FillQueue();
     }
 
     private void AddOrange(Orange orange)
