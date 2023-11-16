@@ -2,8 +2,8 @@
 
 public class OrangeQueue
 {
-    private Queue<Orange> _oranges;
-    
+    private readonly Queue<Orange> _oranges;
+
     public OrangeQueue()
     {
         _oranges = new Queue<Orange>(Configuration.MaxOrangesInQueue);
@@ -13,10 +13,10 @@ public class OrangeQueue
     {
         _oranges.Enqueue(orange);
     }
-    
-    private void RemoveOrange()
+
+    private Orange RemoveOrange()
     {
-        _oranges.Dequeue();
+        return _oranges.Dequeue();
     }
 
     public void FillQueue()

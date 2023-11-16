@@ -2,6 +2,7 @@
 
 internal static class Configuration
 {
-    public const int MaxOrangesInBox = 18;
     public const int MaxOrangesInQueue = 31104;
+    public const int StorageSectionSizeBoxes = 3;
+    public const int StorageSectionSizePallets = 8;
 }
