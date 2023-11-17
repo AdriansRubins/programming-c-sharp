@@ -45,10 +45,10 @@ public class Airplane
     public void SetSpeed(int speed)
     {
         foreach (var engine in _leftWing.GetEngineList()) engine.SetRpm(speed * Configuration.SpeedRpmFactor);
-
+        
         foreach (var engine in _rightWing.GetEngineList()) engine.SetRpm(speed * Configuration.SpeedRpmFactor);
     }
-
+    
     public void EngineShutdown()
     {
         foreach (var engine in _leftWing.GetEngineList()) engine.Shutdown();
@@ -77,7 +77,7 @@ public class Airplane
             CargoSpace = new CargoSpace();
             FlightManagement = new FlightManagement();
         }
-
+        
         public Airplane Build()
         {
             return new Airplane(this);

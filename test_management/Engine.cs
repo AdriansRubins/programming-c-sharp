@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Engine : IEngine
 {
+    private Wing? _wing;
     private readonly List<Blade> _blades;
     private bool _isStarted;
     private int _rpm;
@@ -15,6 +16,11 @@ public class Engine : IEngine
         for (var i = 0; i < 48; i++) _blades.Add(new Blade());
     }
 
+    public void SetWing(Wing? wing)
+    {
+        _wing = wing;
+    }
+    
     public bool IsStarted()
     {
         return _isStarted;
@@ -47,18 +53,21 @@ public class Engine : IEngine
 
         for (var i = 0; i <= 25; i++)
         {
-            Thread.Sleep(50);
             _rpm++;
         }
     }
 
+    public void SetOnFire()
+    {
+        _wing?.GetExtinguishingSystem().Activate();
+    }
+    
     public void Shutdown()
     {
         PrimaryFlightDisplay.CountEnginesStarted--;
-
+        
         for (var i = 0; i <= _rpm; i++)
         {
-            Thread.Sleep(50);
             _rpm--;
         }
 

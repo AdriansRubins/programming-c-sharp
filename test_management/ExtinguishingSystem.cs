@@ -5,6 +5,11 @@ public class ExtinguishingSystem
     private readonly ExtinguishingSystemTank _tank = new ExtinguishingSystemTank(false);
     private bool _isActive;
 
+    public ExtinguishingSystemTank GetExtinguishingSystemTank()
+    {
+        return _tank;
+    }
+    
     public bool IsActive()
     {
         return _isActive;

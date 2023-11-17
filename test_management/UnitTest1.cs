@@ -77,7 +77,7 @@ public class Tests
             Assert.That(airplane.GetRightWing().GetEngineList().All(e => e.IsStarted()));
         });
     }
-
+    
     [Test]
     public void EnginesGenerateCorrectRpm()
     {
@@ -118,8 +118,8 @@ public class Tests
     {
         var airplane = new Airplane.Builder(48).Build();
         var engine = airplane.GetLeftWing().GetEngineList().First();
-        engine.Startup();
         engine.SetRpm(20000);
+        engine.SetOnFire();
         airplane.GetLeftWing().GetExtinguishingSystem().Activate();
         Assert.Multiple(() =>
         {

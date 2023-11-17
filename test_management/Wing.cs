@@ -24,6 +24,7 @@ public class Wing
 
     public void AddFan(Engine engine)
     {
+        engine.SetWing(this);
         _engineList.Add(engine);
     }
 
