@@ -2,6 +2,7 @@
 
 public class ExtinguishingSystem
 {
+    private readonly ExtinguishingSystemTank _tank = new ExtinguishingSystemTank(false);
     private bool _isActive;
 
     public bool IsActive()
@@ -11,7 +12,10 @@ public class ExtinguishingSystem
 
     public void Activate()
     {
+        if (_tank.IsEmpty()) return;
         _isActive = true;
+        _tank.Empty();
+        PrimaryFlightDisplay.CountCallExtinguishFire++;
     }
 
     public void Deactivate()

@@ -43,6 +43,7 @@ public class Engine : IEngine
     public void Startup()
     {
         _isStarted = true;
+        PrimaryFlightDisplay.CountEnginesStarted++;
 
         for (var i = 0; i <= 25; i++)
         {
@@ -53,10 +54,12 @@ public class Engine : IEngine
 
     public void Shutdown()
     {
+        PrimaryFlightDisplay.CountEnginesStarted--;
+
         for (var i = 0; i <= _rpm; i++)
         {
             Thread.Sleep(50);
-            _rpm++;
+            _rpm--;
         }
 
         _isStarted = false;

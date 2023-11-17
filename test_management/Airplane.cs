@@ -42,6 +42,13 @@ public class Airplane
         foreach (var engine in _rightWing.GetEngineList()) engine.Startup();
     }
 
+    public void SetSpeed(int speed)
+    {
+        foreach (var engine in _leftWing.GetEngineList()) engine.SetRpm(speed * Configuration.SpeedRpmFactor);
+
+        foreach (var engine in _rightWing.GetEngineList()) engine.SetRpm(speed * Configuration.SpeedRpmFactor);
+    }
+
     public void EngineShutdown()
     {
         foreach (var engine in _leftWing.GetEngineList()) engine.Shutdown();
@@ -56,12 +63,12 @@ public class Airplane
         internal readonly CargoSpace CargoSpace;
         internal readonly FlightManagement FlightManagement;
 
-        public Builder(int numberOfFanPerWing)
+        public Builder(int numberOfEnginesPerWing)
         {
             LeftWing = new Wing(Position.Port, new NavigationLight(NavigationLightColor.Red));
             RightWing = new Wing(Position.Starboard, new NavigationLight(NavigationLightColor.Green));
 
-            for (var i = 0; i < numberOfFanPerWing; i++)
+            for (var i = 0; i < numberOfEnginesPerWing; i++)
             {
                 LeftWing.AddFan(new Engine());
                 RightWing.AddFan(new Engine());
@@ -71,7 +78,7 @@ public class Airplane
             FlightManagement = new FlightManagement();
         }
 
-        public Airplane? Build()
+        public Airplane Build()
         {
             return new Airplane(this);
         }
