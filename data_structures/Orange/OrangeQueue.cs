@@ -1,4 +1,4 @@
-﻿using data_structures.Operational;
+using data_structures.Operational;
 
 namespace data_structures;
 
@@ -9,7 +9,6 @@ public class OrangeQueue
     public OrangeQueue()
     {
         _oranges = new Queue<Orange>(Configuration.MaxOrangesInQueue);
-        FillQueue();
     }
 
     private void AddOrange(Orange orange)
