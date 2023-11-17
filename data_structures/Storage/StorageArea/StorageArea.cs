@@ -1,22 +1,26 @@
-﻿using data_structures.Operational;
-
-namespace data_structures.Storage.StorageArea;
+﻿namespace data_structures.Storage.StorageArea;
 
 public class StorageArea<T, TU> where T : IStorage<TU>
 {
     private StorageLocation<T, TU>?[][]? _storageLocations;
+    private readonly StorageAreaTyp _storageAreaTyp;
     private int[] _storageSectionSize;
 
     public StorageArea(StorageAreaTyp storageAreaTyp)
     {
-        switch (storageAreaTyp)
+        _storageAreaTyp = storageAreaTyp;
+        switch (_storageAreaTyp)
         {
             case StorageAreaTyp.Box:
-                _storageSectionSize = Configuration.StorageSectionSizeBoxes;
+                if (Configuration.StorageSectionSizeBoxes != null)
+                    _storageSectionSize = Configuration.StorageSectionSizeBoxes;
                 break;
             case StorageAreaTyp.Pallet:
-                _storageSectionSize = Configuration.StorageSectionSizePallets;
+                if (Configuration.StorageSectionSizePallets != null)
+                    _storageSectionSize = Configuration.StorageSectionSizePallets;
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
         InitiateStorageLocations();

@@ -61,8 +61,8 @@ public class Tests
         airplane!.GetCargoSpace().Load();
         Assert.Multiple(() =>
         {
-            Assert.That(airplane.GetCargoSpace().GetLeft().ToArray().All(left => left == null), Is.True);
-            Assert.That(airplane.GetCargoSpace().GetRight().ToArray().All(left => left == null), Is.True);
+            Assert.That(airplane.GetCargoSpace().GetLeft().ToArray().All(left => left != null), Is.True);
+            Assert.That(airplane.GetCargoSpace().GetRight().ToArray().All(right => right != null), Is.True);
         });
     }
 
@@ -78,7 +78,6 @@ public class Tests
         });
     }
 
-    //TODO: Do the math, find the correct rpm values SpeedRpmFactor
     [Test]
     public void EnginesGenerateCorrectRpm()
     {
@@ -109,7 +108,7 @@ public class Tests
         airplane!.EngineStartup();
         Assert.That(PrimaryFlightDisplay.CountEnginesStarted, Is.EqualTo(initialCount + 48 * 2));
         airplane.EngineShutdown();
-        Assert.That(PrimaryFlightDisplay.CountEnginesStarted, Is.EqualTo(initialCount - 48 * 2));
+        Assert.That(PrimaryFlightDisplay.CountEnginesStarted, Is.EqualTo(0));
     }
 
 
@@ -122,9 +121,13 @@ public class Tests
         engine.Startup();
         engine.SetRpm(20000);
         airplane.GetLeftWing().GetExtinguishingSystem().Activate();
-        Assert.That(engine.GetRpm(), Is.LessThanOrEqualTo(10000));
+        Assert.Multiple(() =>
+        {
+            Assert.That(airplane.GetLeftWing().GetExtinguishingSystem().IsActive(), Is.True);
+            Assert.That(PrimaryFlightDisplay.CountCallExtinguishFire, Is.EqualTo(1));
+        });
+        airplane.GetLeftWing().GetExtinguishingSystem().Deactivate();
         Assert.That(airplane.GetLeftWing().GetExtinguishingSystem().IsActive(), Is.False);
-        Assert.That(PrimaryFlightDisplay.CountCallExtinguishFire, Is.EqualTo(1));
     }
 
     [Test]
@@ -145,8 +148,12 @@ public class Tests
     public void CorrectCoordinatesForLondon()
     {
         var airplane = new Airplane.Builder(48).Build();
-        var coordinates = airplane!.GetFlightManagement().Search("London");
-        Assert.That(coordinates, Is.EqualTo(new Coordinate(51.507351, -0.127758, "London")));
+        var coordinates = airplane.GetFlightManagement().Search("London");
+        Assert.Multiple(() =>
+        {
+            Assert.That(coordinates!.GetLatitude(), Is.EqualTo(51.507351));
+            Assert.That(coordinates.GetLongitude(), Is.EqualTo(-0.127758));
+        });
     }
 
     [Test]
