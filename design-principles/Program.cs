@@ -5,18 +5,18 @@ using Implementation.Memory;
 var message = "Welcome";
 Console.WriteLine(message);
 
-Camera camera = new Camera.Builder(CPUType.QuadCore).build();
+Camera camera = new Camera.Builder(CPUType.QuadCore, new StackMemoryCard()).build();
 
 camera.savePictureOnMemory(1);
 
-Picture pic = camera.MemoryCard.getPicture();
+Picture pic = camera.MemoryCard.GetPicture();
 
 string[] strings = new string[10];
 
 for (int i = 0; i < 10; i++)
 {
     char[] chars = new char[10];
-    
+
     for (int j = 0; j < 10; j++)
     {
         chars[j] = pic.Content[i, j];
@@ -33,4 +33,3 @@ foreach (var item in strings)
 Console.ReadKey();
 
 camera.VoiceCommand();
-

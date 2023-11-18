@@ -10,31 +10,22 @@ public class Camera : ICamera
     private bool _isOn;
     private List<IRLed> _irLeds;
     private Chip[] _chips;
-    private MemoryCard _memoryCard;
-    
+
     private Camera(Builder builder)
     {
-
         _serialNumber = builder._serialNumber;
         _isOn = builder._isOn;
         _irLeds = builder._irLeds;
         _chips = builder._chips;
-        _memoryCard = builder._memoryCard;
-
+        MemoryCard = builder.MemoryCard;
     }
+
     public bool IsOn
     {
         get => _isOn;
     }
-    
-    public MemoryCard MemoryCard
-    {
-        get => _memoryCard;
-        set
-        {
-            _memoryCard = value;
-        }
-    }
+
+    public IMemoryCardStrategy MemoryCard { get; set; }
 
     public void VoiceCommand()
     {
@@ -65,7 +56,7 @@ public class Camera : ICamera
     {
         _isOn = false;
     }
-    
+
     public char[,] getRawFacePicture(int faceId)
     {
         string path;
@@ -77,7 +68,7 @@ public class Camera : ICamera
         {
             path = $"../../../../solid_data/face0{faceId}.txt";
         }
-        
+
         string[] file = File.ReadAllLines(path);
         char[,] content = new char[21, 14];
 
@@ -88,13 +79,14 @@ public class Camera : ICamera
                 content[i, j] = file[i][j];
             }
         }
+
         return content;
     }
 
     public int[] extractFace(char[,] content)
     {
         int[] coordinates = new int[4];
-        
+
         //search for first x
         for (int y = 0; y < 21; y++)
         {
@@ -108,9 +100,10 @@ public class Camera : ICamera
                 }
             }
         }
+
         EndFirst:
-        
-        
+
+
         //search for last x
         for (int y = 21 - 1; y >= 0; y--)
         {
@@ -124,23 +117,22 @@ public class Camera : ICamera
                 }
             }
         }
+
         EndSec:
         return coordinates;
     }
-    
-    
+
+
     public Picture getFaceArea(int faceId, char[,] face, int[] area)
     {
-
         char[,] content = new char[10, 10];
         int contentX = 0;
         int contentY = 0;
-        
-        
+
+
         //iterate over the face char array
         for (int y = area[0]; y < (area[2] + 1); y++)
         {
-            
             for (int x = (area[1] + 1); x < area[3]; x++)
             {
                 content[contentY, contentX] = face[y, x];
@@ -149,7 +141,6 @@ public class Camera : ICamera
 
             contentX = 0;
             contentY++;
-            
         }
 
         return new Picture(faceId, content);
@@ -159,8 +150,7 @@ public class Camera : ICamera
     {
         var content = getRawFacePicture(faceId);
 
-        _memoryCard.savePicture(getFaceArea(faceId, content, extractFace(content)));
-      
+        MemoryCard.SavePicture(getFaceArea(faceId, content, extractFace(content)));
     }
 
     public class Builder
@@ -169,17 +159,16 @@ public class Camera : ICamera
         internal bool _isOn;
         internal List<IRLed> _irLeds;
         internal Chip[] _chips;
-        internal MemoryCard _memoryCard;
-        
-        
+        internal IMemoryCardStrategy MemoryCard;
 
-        public Builder(CPUType cputype)
+
+        public Builder(CPUType cputype, IMemoryCardStrategy memoryCardStrategy)
         {
             _serialNumber = "Z7HJ8A1";
             _isOn = false;
             _irLeds = new List<IRLed>();
 
-            _memoryCard = new MemoryCard();
+            MemoryCard = memoryCardStrategy;
 
 
             for (int i = 0; i < 24; i++)
@@ -193,12 +182,13 @@ public class Camera : ICamera
                 _chips[0] = new DualCoreChip();
                 _chips[1] = new DualCoreChip();
             }
+
             if (cputype == CPUType.QuadCore)
             {
                 _chips = new Chip[4];
                 for (int i = 0; i < _chips.Length; i++)
                 {
-                    _chips[i] = new QuadCoreChip();                    
+                    _chips[i] = new QuadCoreChip();
                 }
             }
         }
@@ -208,5 +198,4 @@ public class Camera : ICamera
             return new Camera(this);
         }
     }
-
 }
