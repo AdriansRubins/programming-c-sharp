@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "design_pattern_petrol_card"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test_management", "test_management\test_management.csproj", "{AD036674-4323-4D00-A05A-9BB4B06D5E79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "design-principles", "design-principles\design-principles.csproj", "{5729B697-AB05-4E92-9B9E-13EF6DF41FCE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{AD036674-4323-4D00-A05A-9BB4B06D5E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD036674-4323-4D00-A05A-9BB4B06D5E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD036674-4323-4D00-A05A-9BB4B06D5E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5729B697-AB05-4E92-9B9E-13EF6DF41FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5729B697-AB05-4E92-9B9E-13EF6DF41FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5729B697-AB05-4E92-9B9E-13EF6DF41FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5729B697-AB05-4E92-9B9E-13EF6DF41FCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
