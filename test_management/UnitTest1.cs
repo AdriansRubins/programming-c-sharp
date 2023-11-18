@@ -7,7 +7,7 @@ public class Tests
     [SetUp]
     public void Setup()
     {
-        _airplane = new Airplane.Builder(2).Build()!;
+        _airplane = new Airplane.Builder(2).Build();
         _airplane?.GetCargoSpace().Load();
     }
 
@@ -17,7 +17,7 @@ public class Tests
         var airplane = new Airplane.Builder(48).Build();
         Assert.Multiple(() =>
         {
-            Assert.That(airplane!.GetLeftWing(), Is.Not.Null);
+            Assert.That(airplane.GetLeftWing(), Is.Not.Null);
             Assert.That(airplane.GetRightWing(), Is.Not.Null);
             Assert.That(airplane.GetLeftWing().GetExtinguishingSystem(), Is.Not.Null);
         });
@@ -37,7 +37,7 @@ public class Tests
         var airplane = new Airplane.Builder(48).Build();
         Assert.Multiple(() =>
         {
-            Assert.That(airplane!.GetLeftWing().GetNavigationLight().GetColor(), Is.EqualTo(NavigationLightColor.Red));
+            Assert.That(airplane.GetLeftWing().GetNavigationLight().GetColor(), Is.EqualTo(NavigationLightColor.Red));
             Assert.That(airplane.GetRightWing().GetNavigationLight().GetColor(),
                 Is.EqualTo(NavigationLightColor.Green));
         });
@@ -49,7 +49,7 @@ public class Tests
         var airplane = new Airplane.Builder(48).Build();
         Assert.Multiple(() =>
         {
-            Assert.That(airplane!.GetLeftWing().GetEngineList(), Has.Count.EqualTo(48));
+            Assert.That(airplane.GetLeftWing().GetEngineList(), Has.Count.EqualTo(48));
             Assert.That(airplane.GetRightWing().GetEngineList(), Has.Count.EqualTo(48));
         });
     }
@@ -58,7 +58,7 @@ public class Tests
     public void CargoSpaceLoadingIsCorrect()
     {
         var airplane = new Airplane.Builder(48).Build();
-        airplane!.GetCargoSpace().Load();
+        airplane.GetCargoSpace().Load();
         Assert.Multiple(() =>
         {
             Assert.That(airplane.GetCargoSpace().GetLeft().ToArray().All(left => left != null), Is.True);
@@ -70,7 +70,7 @@ public class Tests
     public void EngineStartupStartsAllEngines()
     {
         var airplane = new Airplane.Builder(48).Build();
-        airplane!.EngineStartup();
+        airplane.EngineStartup();
         Assert.Multiple(() =>
         {
             Assert.That(airplane.GetLeftWing().GetEngineList().All(e => e.IsStarted()));
@@ -105,7 +105,7 @@ public class Tests
     {
         var airplane = new Airplane.Builder(48).Build();
         var initialCount = PrimaryFlightDisplay.CountEnginesStarted;
-        airplane!.EngineStartup();
+        airplane.EngineStartup();
         Assert.That(PrimaryFlightDisplay.CountEnginesStarted, Is.EqualTo(initialCount + 48 * 2));
         airplane.EngineShutdown();
         Assert.That(PrimaryFlightDisplay.CountEnginesStarted, Is.EqualTo(0));
@@ -160,7 +160,7 @@ public class Tests
     public void CorrectCityForCoordinates()
     {
         var airplane = new Airplane.Builder(48).Build();
-        var city = airplane!.GetFlightManagement().Search(49.490200, 9.773150);
+        var city = airplane.GetFlightManagement().Search(49.490200, 9.773150);
         Assert.That(city, Is.EqualTo("Bad Mergentheim"));
     }
 }
