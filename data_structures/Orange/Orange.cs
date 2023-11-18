@@ -3,7 +3,7 @@
 public class Orange
 {
     private static readonly Random Random = new();
-    public int Weight { get; }
+    public int Weight;
 
     public Orange()
     {

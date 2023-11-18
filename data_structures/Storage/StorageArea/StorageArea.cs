@@ -1,4 +1,6 @@
-﻿namespace data_structures.Storage.StorageArea;
+﻿using data_structures.Operational;
+
+namespace data_structures.Storage.StorageArea;
 
 public class StorageArea<T, TU> where T : IStorage<TU>
 {

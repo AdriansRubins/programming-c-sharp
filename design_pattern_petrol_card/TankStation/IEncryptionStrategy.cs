@@ -2,6 +2,6 @@
 
 public interface IEncryptionStrategy
 {
-    byte[] encrypt();
-    string decrypt();
+    byte[] Encrypt(int pin);
+    int Decrypt(byte[] cipherText);
 }
