@@ -2,23 +2,29 @@
 
 public class DictionaryMemoryCard : IMemoryCardStrategy
 {
-    private readonly Dictionary<int, Picture> _store;
-
-    public Dictionary<int, Picture> Store => _store;
+    private Dictionary<string, Picture> Store { get; }
 
     public DictionaryMemoryCard()
     {
-        _store = new Dictionary<int, Picture>();
+        Store = new Dictionary<string, Picture>();
     }
 
     public void SavePicture(Picture picture)
     {
-        _store.Add(picture.GetHashCode(), picture);
+        Store.Add(picture.Timestamp, picture);
     }
 
     public Picture GetPicture()
     {
-        _store.Remove(_store.Last().Key);
-        return _store.Last().Value;
+        var picture = Store.Last().Value;
+        Store.Remove(Store.Last().Key);
+        return picture;
+    }
+    
+    public Picture GetPicture(string timestamp)
+    {
+        var picture = Store.Last().Value;
+        Store.Remove(timestamp);
+        return picture;
     }
 }
