@@ -1,5 +1,7 @@
 ﻿#nullable disable
 
+using data_structures.Operational;
+
 namespace data_structures.Storage;
 
 public class Pallet : IStorage<Box>
@@ -8,8 +10,15 @@ public class Pallet : IStorage<Box>
 
     public Pallet()
     {
-        _boxes = new Box[4][][];
-        InitiateContainer();
+        _boxes = new Box[Configuration.BoxesInPallet[0]][][];
+        for (int i = 0; i < Configuration.BoxesInPallet[0]; i++)
+        {
+            _boxes[i] = new Box[Configuration.BoxesInPallet[1]][];
+            for (int j = 0; j < Configuration.BoxesInPallet[1]; j++)
+            {
+                _boxes[i][j] = new Box[Configuration.BoxesInPallet[2]];
+            }
+        }
     }
 
     public void StoreItem(Box item)
@@ -28,19 +37,8 @@ public class Pallet : IStorage<Box>
         }
     }
 
-    public bool IsEmpty()
+    public bool IsFull()
     {
-        return _boxes.SelectMany(boxes => boxes).SelectMany(boxes => boxes).All(box => box == null);
-    }
-
-    public void InitiateContainer()
-    {
-        _boxes = Enumerable.Range(0, 4)
-            .Select(_ => Enumerable.Range(0, 3)
-                .Select(_ => Enumerable.Range(0, 4)
-                    .Select(_ => new Box())
-                    .ToArray())
-                .ToArray())
-            .ToArray();
+        return _boxes.SelectMany(boxes => boxes).SelectMany(boxes => boxes).Any(box => box != null);
     }
 }

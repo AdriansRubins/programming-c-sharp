@@ -14,15 +14,22 @@ public class OrangeQueue
 
     private void AddOrange(Orange orange)
     {
-        _oranges.Enqueue(orange);
+        if (_orangesInQueue == Configuration.MaxOrangesInQueue)
+        {
+            Console.WriteLine("Queue is full");
+            return;
+        }
+
         _orangesInQueue++;
+        _oranges.Enqueue(orange);
     }
 
     private Orange RemoveOrange()
     {
         if (_oranges.Count == 0)
         {
-            throw new InvalidOperationException("Queue is empty");
+            Console.WriteLine("Queue is empty");
+            return null;
         }
 
         _orangesInQueue--;

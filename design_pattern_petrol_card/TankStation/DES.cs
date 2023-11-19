@@ -10,8 +10,8 @@ public class DES : IEncryptionStrategy
         byte[] encrypted;
 
         using var des = new DESCryptoServiceProvider();
-        des.Key = Configuration.Key;
-        des.IV = Configuration.IV;
+        des.Key = new byte[8] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };;
+        des.IV = new byte[8] { 0x01, 0x03, 0x02, 0x04, 0x05, 0x06, 0x07, 0x08 };;
 
         var encryptor = des.CreateEncryptor(des.Key, des.IV);
 
@@ -32,16 +32,12 @@ public class DES : IEncryptionStrategy
     {
         if (cipherText == null || cipherText.Length <= 0)
             throw new ArgumentNullException(nameof(cipherText));
-        if (Configuration.Key == null || Configuration.Key.Length <= 0)
-            throw new ArgumentNullException(nameof(Configuration.Key));
-        if (Configuration.IV == null || Configuration.IV.Length <= 0)
-            throw new ArgumentNullException(nameof(Configuration.IV));
 
         string plaintext;
 
         using var des = new DESCryptoServiceProvider();
-        des.Key = Configuration.Key;
-        des.IV = Configuration.IV;
+        des.Key = new byte[8] { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };;
+        des.IV = new byte[8] { 0x01, 0x03, 0x02, 0x04, 0x05, 0x06, 0x07, 0x08 };;
 
         var decryptor = des.CreateDecryptor(des.Key, des.IV);
 
