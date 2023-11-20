@@ -17,4 +17,4 @@ jobs:
     - name: Run Hadolint
       uses: hadolint/hadolint-action@v1.5.0
       with:
-        dockerfile: "./Dockerfile"
+        dockerfile: "./design_pattern_petrol_card/Dockerfile"
