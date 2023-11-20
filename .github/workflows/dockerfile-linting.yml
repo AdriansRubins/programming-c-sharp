@@ -8,14 +8,13 @@ on:
       - main
 
 jobs:
-  hadolint:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-
+    - uses: actions/checkout@v2
+    
     - name: Run Hadolint
       uses: hadolint/hadolint-action@v1.5.0
       with:
-        dockerfile: './Dockerfile'
+        dockerfile: "./Dockerfile"
