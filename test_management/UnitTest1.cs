@@ -78,24 +78,26 @@ public class Tests
         });
     }
     
-    [Test]
-    public void EnginesGenerateCorrectRpm()
+    [TestCase(0)]
+    [TestCase(25)]
+    [TestCase(70)]
+    [TestCase(165)]
+    [TestCase(300)]
+    [TestCase(371)]
+    [TestCase(455)]
+    [TestCase(500)]
+    public void EnginesGenerateCorrectRpm(int speed)
     {
         var airplane = new Airplane.Builder(48).Build();
-        var speeds = new[] { 0, 25, 70, 165, 300, 371, 455, 500 };
 
-        foreach (var speed in speeds)
+        airplane.SetSpeed(speed);
+        foreach (var engine in airplane.GetLeftWing().GetEngineList())
         {
-            airplane.SetSpeed(speed);
-            foreach (var engine in airplane.GetLeftWing().GetEngineList())
-            {
-                Assert.That(engine.GetRpm(), Is.EqualTo(speed * Configuration.SpeedRpmFactor));
-            }
-
-            foreach (var engine in airplane.GetRightWing().GetEngineList())
-            {
-                Assert.That(engine.GetRpm(), Is.EqualTo(speed * Configuration.SpeedRpmFactor));
-            }
+            Assert.That(engine.GetRpm(), Is.EqualTo(speed * Configuration.SpeedRpmFactor));
+        }
+        foreach (var engine in airplane.GetRightWing().GetEngineList())
+        {
+            Assert.That(engine.GetRpm(), Is.EqualTo(speed * Configuration.SpeedRpmFactor));
         }
     }
 
