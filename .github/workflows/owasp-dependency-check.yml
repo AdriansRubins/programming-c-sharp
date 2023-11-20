@@ -1,0 +1,29 @@
+name: OWASP Dependency Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: OWASP Dependency Check
+      uses: ShiftLeftSecurity/dependency-check-action@main
+      with:
+        path: './'
+        format: 'html'
+        failBuild: true
+        failBuildOnCVSS: 7
