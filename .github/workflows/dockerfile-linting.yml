@@ -1,12 +1,11 @@
 name: Dockerfile Linting
 
 on:
-  push:
-    paths:
-      - 'Dockerfile'
+  workflow_dispatch:
   pull_request:
-    paths:
-      - 'Dockerfile'
+  push:
+    branches:
+      - main
 
 jobs:
   hadolint:
