@@ -23,4 +23,4 @@ jobs:
     - name: Run Snyk to check for vulnerabilities
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      run: snyk test --docker programming-c-sharp --file=Dockerfile
+      run: snyk test --docker programming-c-sharp --file=./design_pattern_petrol_card/Dockerfile
